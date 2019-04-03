@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchProdImages } from '../../actions/fetchImageAction';
+import { fatchProdImages } from '../../actions/fetchImageAction';
 
 import { withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
@@ -87,67 +87,51 @@ const styles = theme => ({
   }
 });
 
-class ProductCategories extends Component {
-  componentWillMount() {
-    this.props.fetchProdImages();
-  }
+function ProductCategories(props) {
+  const { classes } = props,
+    images = props.prodimages;
 
-  render() {
-    const classes = this.props.classes,
-      images = this.props.prodimages;
-    // console.log(this.props.prodimages);
-
-    return (
-      <LayoutBody className={classes.root} component="section" width="large">
-        <Typography variant="h4" marked="center" align="center" component="h2">
-          For all tastes and all desires
-        </Typography>
-        <div className={classes.images}>
-          {images.map(image => (
-            <ButtonBase
-              key={image.title}
-              className={classes.imageWrapper}
+  return (
+    <LayoutBody className={classes.root} component="section" width="large">
+      <Typography variant="h4" marked="center" align="center" component="h2">
+        For all tastes and all desires
+      </Typography>
+      <div className={classes.images}>
+        {images.map(image => (
+          <ButtonBase
+            key={image.title}
+            className={classes.imageWrapper}
+            style={{
+              width: image.width
+            }}
+          >
+            <div
+              className={classes.imageSrc}
               style={{
-                width: image.width
+                backgroundImage: `url(${image.url})`
               }}
-            >
-              <div
-                className={classes.imageSrc}
-                style={{
-                  backgroundImage: `url(${image.url})`
-                }}
-              />
-              <div className={classes.imageBackdrop} />
-              <div className={classes.imageButton}>
-                <Typography
-                  component="h3"
-                  variant="h6"
-                  color="inherit"
-                  className={classes.imageTitle}
-                >
-                  {image.title}
-                  <div className={classes.imageMarked} />
-                </Typography>
-              </div>
-            </ButtonBase>
-          ))}
-        </div>
-      </LayoutBody>
-    );
-  }
+            />
+            <div className={classes.imageBackdrop} />
+            <div className={classes.imageButton}>
+              <Typography
+                component="h3"
+                variant="h6"
+                color="inherit"
+                className={classes.imageTitle}
+              >
+                {image.title}
+                <div className={classes.imageMarked} />
+              </Typography>
+            </div>
+          </ButtonBase>
+        ))}
+      </div>
+    </LayoutBody>
+  );
 }
 
 ProductCategories.propTypes = {
-  classes: PropTypes.object.isRequired,
-  // fetchProdImages: PropTypes.array.isRequired,
-  prodimages: PropTypes.array.isRequired
+  classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  prodimages: state.prodimages.prodimages
-});
-
-export default connect(
-  mapStateToProps,
-  { fetchProdImages }
-)(withStyles(styles)(ProductCategories));
+export default withStyles(styles)(ProductCategories);

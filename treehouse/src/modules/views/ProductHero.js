@@ -6,10 +6,10 @@ import Button from '../components/Button';
 import Typography from '../components/Typography';
 import ProductHeroLayout from './ProductHeroLayout';
 
-const backgroundImage =
-  'http://spicecountryresorts.com/wp-content/uploads/2012/01/spice-country-resort-munnar-2.jpg';
+// const backgroundImage =
+//   'http://spicecountryresorts.com/wp-content/uploads/2012/01/spice-country-resort-munnar-2.jpg';
 
-// const backgroundImage = '../../assets/images/spice-country-resort-munnar-2.jpg';
+const backgroundImage = '../../assets/images/spice-country-resort-munnar-2.jpg';
 
 const styles = theme => ({
   background: {
